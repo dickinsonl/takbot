@@ -1,16 +1,20 @@
+# Credit for parser goes to:
+# https://github.com/Abyssal-Tak/2TPS
+#
+# Minor changes have been made from the original code
 import re
 from math import ceil
 
 
-file = input('Name of the PTN file that you would like to parse?\n')
-# file = 'fwwwwibib vs Gerrek 2016.08.12.ptn'
-try:
-    #plyNumber = set(input('At how many plys would you like the TPS to be printed?\n'))
-    s = input('At how many plys would you like the TPS to be printed?\n')
-    plyNumber = set(map(int, s.split(',')))
-except ValueError:
-    print("Invalid input! Defaulting to end of game position...")
-    plyNumber = {1000}
+# file = input('Name of the PTN file that you would like to parse?\n')
+# # file = 'fwwwwibib vs Gerrek 2016.08.12.ptn'
+# try:
+#     #plyNumber = set(input('At how many plys would you like the TPS to be printed?\n'))
+#     s = input('At how many plys would you like the TPS to be printed?\n')
+#     plyNumber = set(map(int, s.split(',')))
+# except ValueError:
+#     print("Invalid input! Defaulting to end of game position...")
+#     plyNumber = {1000}
 
 
 
@@ -74,13 +78,13 @@ class Board:
         howMany = int(howMany)
         movement = [0, 0]
         newTiles = [] # First a tuple denoting the square which will receive tiles, then an int of how many tiles
-        if direction is "+":
+        if direction == "+":
             movement[0] = -1
-        elif direction is "-":
+        elif direction == "-":
             movement[0] = 1
-        elif direction is "<":
+        elif direction == "<":
             movement[1] = -1
-        elif direction is ">":
+        elif direction == ">":
             movement[1] = 1
 
         for n in range(1,len(toWhere) + 1):
@@ -104,7 +108,7 @@ class Board:
 
 
 
-def playMoves(moves, boardSize = 6, breakPly = {1000}, fileString = file):
+def playMoves(moves, fileString, boardSize = 6, breakPly = {1000}):
     outFile = 'TPS.txt'
     plyCount = 1
 
@@ -226,7 +230,7 @@ def playMoves(moves, boardSize = 6, breakPly = {1000}, fileString = file):
                 f.write(TPString + '\n')
 
         plyCount += 1
-
+        return x
         # End func playMoves
 
 
@@ -253,9 +257,9 @@ def parsePTN(inFile):
     return m, size
 
 
-gameMoves, bs = parsePTN(file)
+# gameMoves, bs = parsePTN(file)
 
-playMoves(gameMoves, boardSize = bs, breakPly = plyNumber)
+# playMoves(gameMoves, boardSize = bs, breakPly = plyNumber)
 
 
 
