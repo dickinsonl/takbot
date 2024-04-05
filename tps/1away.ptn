@@ -1,0 +1,14 @@
+[Site "PlayTak.com"]
+[Date "2024.4.3"]
+[Player1 "You"]
+[Player2 "You"]
+[Size "5"]
+[Komi "0"]
+[Flats "21"]
+[Caps "1"]
+[Result ""]
+
+1. a1 b1
+2. b2 c1
+3. b3 d3
+4. b4 b5
