@@ -23,8 +23,6 @@ class Board:
                     self.b[i].append(Piece(j))
 
     def __str__(self):
-        # col0 = [self.b[i][1] for i in range(self.size)]
-        # [print(i) for i in col0]
         out = ''
         for i in range(self.size):
             row = ''
@@ -157,19 +155,16 @@ class Board:
             for j in range(self.size):
                 coord = (i,j)
                 p = self.b[i][j]
-                #print(p.team, team, p.team == team)
                 curRoad = 0
                 if p.team == team: #finding start of road
                     curRoad = 1
                     closed = []
-                    open = [coord] #([x for x in self.connected(coord) if x[0] > i])
-                    #print(f'i: {i}, j: {j}, open: {open}')
+                    open = [coord] 
                     while True:
                         if len(open) == 0:
                             break
                         node = open.pop()
                         closed.append(node)
-                        #print(f'node - i: {(node[0] - i)}, maxroad: {maxRoad}')
                         if (node[0] - i + 1) > curRoad: #check if the new node makes the road longer vertically
                             curRoad += 1
 
@@ -187,13 +182,11 @@ class Board:
             for i in range(self.size):
                 coord = (i,j)
                 p = self.b[i][j]
-                #print(p.team, team, p.team == team)
                 curRoad = 0
                 if p.team == team: #finding start of road
                     curRoad = 1
                     closed = []
-                    open = [coord] #([x for x in self.connected(coord) if x[0] > i])
-                    #print(f'i: {i}, j: {j}, open: {open}')
+                    open = [coord]
                     while True:
                         if len(open) == 0:
                             break
@@ -202,7 +195,6 @@ class Board:
                         
                         if (node[1] - j + 1) > curRoad: #check if the new node makes the road longer horizontally
                             curRoad += 1
-                        #print(f'node - j: {(node[1] - j)}, maxroad: {maxRoad}')
 
                         if curRoad >= (self.size): #return 0 if there is a full road
                             return curRoad

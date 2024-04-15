@@ -25,17 +25,14 @@ def maxi(b, depth, team, alpha, beta): #returns value, move pair
         L = evaluate(b, team)
         return L, None
     v = float('-inf')
-    #print("movelist", b.getMoves())
     move = None
     for m in b.getMoves():
         temp = b.move(m)
         (v2, m2) = mini(temp, depth - 1,team, alpha, beta)
-        #print(f'maxi v: {v}, v2: {v2}, move: {m}')
         if v2 > v:
             v, move = v2, m
             alpha = max(alpha, v)
         if v >= beta: return v, move
-    #print(f'maxi v: {v}, move: {move, b.turn}')
     return v, move
 
 def mini(b, depth, team, alpha, beta): #returns value, move pair
@@ -47,16 +44,12 @@ def mini(b, depth, team, alpha, beta): #returns value, move pair
     move = None
     
     for m in b.getMoves():
-        #print("m:", m)
         temp = b.move(m)
-        #print(temp)
         v2, m2 = maxi(temp, depth - 1, team, alpha, beta)
-        #print(f'pre mini v2: {v2}, m2: {m2}, m: {m}')
         if v2 < v:
             v, move = v2, m
             beta = min(beta, v)
         if v <= alpha: return v, move
-    #print(f'mini v: {v}, move: {move, b.turn}')
     return v, move
 
 def alphabeta(b, depth): #returns a move, currently only works for white
