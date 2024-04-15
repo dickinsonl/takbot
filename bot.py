@@ -1,4 +1,6 @@
 import tak
+import time
+
 def evaluate(b, player):
     roadWeight = 1.0 #Weights to be tuned
     flatWeight = 0.0
@@ -17,7 +19,7 @@ def evaluate(b, player):
         road = -oppLen
     return roadWeight*road + flatWeight*fcd #could probably just return teamLen - oppLen but this improves readability for debugging
 
-def maxi(b, depth, team): #returns value, move pair
+def maxi(b, depth, team, alpha, beta): #returns value, move pair
     #team = b.turn
     if (depth == 0) | (b.roadLen(team) == b.size) | (b.roadLen(3-team) == b.size):
         L = evaluate(b, team)
@@ -27,14 +29,16 @@ def maxi(b, depth, team): #returns value, move pair
     move = None
     for m in b.getMoves():
         temp = b.move(m)
-        (v2, m2) = mini(temp, depth - 1,team)
+        (v2, m2) = mini(temp, depth - 1,team, alpha, beta)
         #print(f'maxi v: {v}, v2: {v2}, move: {m}')
         if v2 > v:
             v, move = v2, m
+            alpha = max(alpha, v)
+        if v >= beta: return v, move
     #print(f'maxi v: {v}, move: {move, b.turn}')
     return v, move
 
-def mini(b, depth, team): #returns value, move pair
+def mini(b, depth, team, alpha, beta): #returns value, move pair
     #team = b.turn
     if (depth == 0) | (b.roadLen(team) == b.size) | (b.roadLen(3-team) == b.size):
         L = evaluate(b, team)
@@ -46,32 +50,32 @@ def mini(b, depth, team): #returns value, move pair
         #print("m:", m)
         temp = b.move(m)
         #print(temp)
-        v2, m2 = maxi(temp, depth - 1, team)
+        v2, m2 = maxi(temp, depth - 1, team, alpha, beta)
         #print(f'pre mini v2: {v2}, m2: {m2}, m: {m}')
         if v2 < v:
             v, move = v2, m
-            #if v == float('inf')
+            beta = min(beta, v)
+        if v <= alpha: return v, move
     #print(f'mini v: {v}, move: {move, b.turn}')
     return v, move
 
-def minimax(b, depth): #returns a move, currently only works for white
+def alphabeta(b, depth): #returns a move, currently only works for white
     player = b.turn
-    (value, move) = maxi(b, depth, player)
+    (value, move) = maxi(b, depth, player, float('-inf'), float('inf'))
     return move, value
 
 tps = input()
 print(f'Input tps: {tps}')
 board = tak.Board(tps)
 print(board)
-board = board.move('b2>')
-# board = board.move('b4')
-# board = board.move('a3')
-# board = board.move('a4')
-# board = board.move('c3')
-# board = board.move('c4')
-print(board.flatCount())
-#c, v = minimax(board,3)
-#print(c, v)
 
+start = time.time()
+c, v = alphabeta(board,4) #parameters are (board, depth)
+end = time.time()
 
+print(f'Player: {board.turn}, Move: {c}')
+board = board.move(c)
 print(board)
+print('Time elapsed:', end - start)
+
+#print(board)

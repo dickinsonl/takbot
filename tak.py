@@ -112,6 +112,7 @@ class Board:
             p = out.b[rank][file]
             out.b[rank][file] = Piece()
             out.b[dest[0]][dest[1]].stack(p)
+            out.turn = 3 - out.turn #this switches the turn from 2 to 1 or vice versa
             return out
         #Placement moves:
         if ptn[0].isupper():
@@ -123,8 +124,6 @@ class Board:
         p = Piece(pStr)
         out.b[rank][file] = p
         out.turn = 3 - out.turn #this switches the turn from 2 to 1 or vice versa
-        
-
         return out
         
     #def evaluate():
