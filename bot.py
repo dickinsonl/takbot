@@ -68,7 +68,4 @@ end = time.time()
 
 print(f'Player: {board.turn}, Move: {c}')
 board = board.move(c)
-print(board)
 print('Time elapsed:', end - start)
-
-#print(board)
