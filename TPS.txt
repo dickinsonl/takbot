@@ -1,8 +1,0 @@
-
-ptn/1away.ptn :
-ptn/1away.ptn :
-ptn/1away.ptn :
-ptn/1away.ptn :
-[TPS "x1,2,x1,x1,x1/x1,1,x1,x1,x1/x1,1,x1,2,x1/x1,1,x1,x1,x1/2,1,2,x1,x1 1 4"]
-ptn/1away.ptn :
-ptn/1away.ptn :
