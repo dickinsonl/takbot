@@ -60,6 +60,7 @@ def alphabeta(b, depth): #returns a move, currently only works for white
 tps = input()
 print(f'Input tps: {tps}')
 board = tak.Board(tps)
+print("Board State:")
 print(board)
 
 start = time.time()
